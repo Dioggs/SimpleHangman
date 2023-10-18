@@ -9,7 +9,10 @@ const words = [
     "garrafa",
     "bolo",
     "torta",
-    "linux"
+    "linux",
+    "maça",
+    "macarrao",
+    "hamburger",
 ];
 
 let wins = 0;
@@ -22,9 +25,11 @@ function startGame(){
     while(true){
         let randomWord = words[Math.floor(Math.random() * words.length)];
         
-        let wordStatus = randomWord.split("").map(_ => { return "_" });
+        let letterFields = randomWord
+            .split("")
+            .map(_ => { return "_" });
     
-        wordStatus.map(x => process.stdout.write(`${x} `));
+        letterFields.map(x => process.stdout.write(`${x} `));
         console.log();
         
         while(wins !== randomWord.length){
@@ -37,7 +42,7 @@ function startGame(){
             }
     
             if(randomWord.includes(userChoice)){
-                let indexes = []
+                let indexes = [];
                 for(let i = 0; i < randomWord.length; i++){
                     if(randomWord[i] === userChoice){
                         indexes.push(i);
@@ -45,23 +50,23 @@ function startGame(){
                 }
 
                 indexes.map(i => {
-                    wordStatus[i] = userChoice;
+                    letterFields[i] = userChoice;
                     wins++; 
                 });
             }
             else {
-                console.log("Letra errada, tente novamente \n");
+                console.log("Letra errada, tente novamente\n");
                 losses++;
             }
     
-            wordStatus.map(x => process.stdout.write(`${x} `));
+            letterFields.map(x => process.stdout.write(`${x} `));
             console.log();
         } 
     
         let replayChoice = endGame()
     
         if(replayChoice === "n"){
-            console.log("Tchau");
+            console.log("Bye Bye");
             break;
         }
     }     
@@ -74,7 +79,7 @@ function validatePlayerInput(input){
     }
 
     if(input.length > 1 || input.length < 1){
-        console.log("\nUma letra inválida foi inserida, uma nova palavra será escolhida\n");
+        console.log("\nUma letra inválida foi inserida\n");
         return false;
     }
 
